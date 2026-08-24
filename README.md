@@ -59,26 +59,6 @@ $$R_t^i = \text{FinancialReward}_t^i - \text{DegradationCost}_t^i - \text{Depart
 
 ---
 
-## 📊 Experimental Results
-
-| Metric / Scenario | Base Unmanaged Load | Decentralized MARL (DQN) | Centralized Social Optimum |
-| :--- | :---: | :---: | :---: |
-| **Total Daily Grid Cost** | \$154.50 | **\$98.20** | \$90.80 |
-| **Price of Anarchy (PoA)** | 1.83 | **1.08** | 1.00 |
-| **Evening Peak Demand** | 55.0 kW | **30.0 kW** | 22.5 kW |
-| **Midday Solar Valley** | 30.0 kW | **-15.0 kW** | -12.0 kW |
-
-### Load Curves & Peak Shaving
-![Grid Load Comparison](assets/plot_load.png)
-
-### Dynamic Price Stabilization
-![Dynamic Prices](assets/plot_price.png)
-
-### MARL Convergence & Price of Anarchy Progress
-![Learning Progress](assets/plot_learning.png)
-
----
-
 ## 🚀 Quickstart Guide
 
 ### 1. Clone Repository & Install Dependencies
@@ -106,9 +86,6 @@ Open your web browser and navigate to `http://localhost:8080` to launch the live
 ```text
 NeuroGrid-V2G/
 ├── assets/                  # High-resolution benchmark figures
-│   ├── plot_load.png
-│   ├── plot_price.png
-│   └── plot_learning.png
 ├── web/                     # Web dashboard frontend
 │   ├── index.html           # Dashboard UI
 │   ├── style.css           # Glassmorphism dark-theme styling
