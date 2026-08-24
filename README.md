@@ -19,43 +19,43 @@ A Multi-Agent Reinforcement Learning (MARL) framework and real-time interactive 
 
 ## 🏗️ System Architecture
 
-`mermaid
+```mermaid
 graph TD
-    Grid[Smart Grid Microgrid<br/>Base Load + Solar Generation] --> Pricing[Dynamic Pricing Engine<br/>P_t = max 0.02, P_base + gamma * NetLoad]
-    Pricing --> EV1[EV Agent 1 - DQN<br/>State: t, SOC, Price, T_dep<br/>Action: Charge / V2G / Idle]
-    Pricing --> EV2[EV Agent 2 - DQN<br/>State: t, SOC, Price, T_dep<br/>Action: Charge / V2G / Idle]
-    Pricing --> EVN[EV Agent N - DQN<br/>State: t, SOC, Price, T_dep<br/>Action: Charge / V2G / Idle]
+    Grid[<b>Smart Grid Microgrid</b><br/>Base Load + Solar Generation] --> Pricing[<b>Dynamic Pricing Engine</b><br/>P_t = max(0.02, P_base + γ · NetLoad)]
+    Pricing --> EV1[<b>EV Agent 1</b> (DQN)<br/>State: t, SOC, Price, T_dep<br/>Action: Charge / V2G / Idle]
+    Pricing --> EV2[<b>EV Agent 2</b> (DQN)<br/>State: t, SOC, Price, T_dep<br/>Action: Charge / V2G / Idle]
+    Pricing --> EVN[<b>EV Agent N</b> (DQN)<br/>State: t, SOC, Price, T_dep<br/>Action: Charge / V2G / Idle]
     EV1 -->|Power Flow| Grid
     EV2 -->|Power Flow| Grid
     EVN -->|Power Flow| Grid
-`
+```
 
 ---
 
 ## 🔬 Mathematical Formulation
 
-### 1. State Space (^i$)
+### 1. State Space ($s_t^i$)
 Each EV agent observes a 5-dimensional continuous state vector:
 
-s_t^i = \left[ \frac{t}{24}, \; \text{SOC}_t^i, \; \frac{P_t}{P_{\text{max}}}, \; \frac{T_{\text{dep}}^i - t}{24}, \; \text{SOC}_{\text{target}}^i \right]
+$$s_t^i = \left[ \frac{t}{24}, \; \text{SOC}_t^i, \; \frac{P_t}{P_{\text{max}}}, \; \frac{T_{\text{dep}}^i - t}{24}, \; \text{SOC}_{\text{target}}^i \right]$$
 
-### 2. Action Space (^i$)
+### 2. Action Space ($a_t^i$)
 Each connected EV chooses among 3 discrete actions:
-- **0 (Charge)**: Draws $+7.37\text{ kW}$ from the grid ($+14\%$ SOC/hr).
-- **1 (Discharge / V2G)**: Injects $-6.65\text{ kW}$ to the grid ($-14\%$ SOC/hr, constrained to $\text{SOC} \ge 0.15$).
-- **2 (Idle)**: \text{ kW}$ power exchange.
+- `0` **(Charge)**: Draws $+7.37\text{ kW}$ from the grid ($+14\%$ SOC/hr).
+- `1` **(Discharge / V2G)**: Injects $-6.65\text{ kW}$ to the grid ($-14\%$ SOC/hr, constrained to $\text{SOC}_t^i \ge 0.15$).
+- `2` **(Idle)**: $0\text{ kW}$ power exchange.
 
-### 3. Dynamic Congestion Pricing ($)
+### 3. Dynamic Congestion Pricing ($P_t$)
 Electricity tariff is determined dynamically based on aggregate net demand:
 
-P_t = \max\left(0.02, \; P_{\text{base}} + \gamma \cdot \text{Net Load}_t\right)
+$$P_t = \max\left(0.02, \; P_{\text{base}} + \gamma \cdot \text{Net Load}_t\right)$$
 
-\text{Net Load}_t = L_{\text{base}, t} - G_{\text{solar}, t} + \sum_{i=1}^N P_{\text{ev}, t}^i
+$$\text{Net Load}_t = L_{\text{base}, t} - G_{\text{solar}, t} + \sum_{i=1}^N P_{\text{ev}, t}^i$$
 
-### 4. Reward Function (^i$)
+### 4. Reward Function ($R_t^i$)
 Agent reward balances electricity costs/revenues, battery wear, and departure requirements:
 
-R_t^i = \text{FinancialReward}_t^i - \text{DegradationCost}_t^i - \text{DeparturePenalty}_t^i
+$$R_t^i = \text{FinancialReward}_t^i - \text{DegradationCost}_t^i - \text{DeparturePenalty}_t^i$$
 
 ---
 
@@ -63,7 +63,7 @@ R_t^i = \text{FinancialReward}_t^i - \text{DegradationCost}_t^i - \text{Departur
 
 | Metric / Scenario | Base Unmanaged Load | Decentralized MARL (DQN) | Centralized Social Optimum |
 | :--- | :---: | :---: | :---: |
-| **Total Daily Grid Cost** | .50 | **.20** | .80 |
+| **Total Daily Grid Cost** | \$154.50 | **\$98.20** | \$90.80 |
 | **Price of Anarchy (PoA)** | 1.83 | **1.08** | 1.00 |
 | **Evening Peak Demand** | 55.0 kW | **30.0 kW** | 22.5 kW |
 | **Midday Solar Valley** | 30.0 kW | **-15.0 kW** | -12.0 kW |
@@ -82,28 +82,28 @@ R_t^i = \text{FinancialReward}_t^i - \text{DegradationCost}_t^i - \text{Departur
 ## 🚀 Quickstart Guide
 
 ### 1. Clone Repository & Install Dependencies
-`ash
+```bash
 git clone https://github.com/Saeidabsnjd/NeuroGrid-V2G.git
 cd NeuroGrid-V2G
 pip install -r requirements.txt
-`
+```
 
 ### 2. Run Verification Tests
-`ash
+```bash
 python test_models.py
-`
+```
 
 ### 3. Start the Interactive Simulator
-`ash
+```bash
 python server.py
-`
-Open your web browser and navigate to http://localhost:8080 to launch the live dashboard.
+```
+Open your web browser and navigate to `http://localhost:8080` to launch the live dashboard.
 
 ---
 
 ## 📁 Project Structure
 
-`	ext
+```text
 NeuroGrid-V2G/
 ├── assets/                  # High-resolution benchmark figures
 │   ├── plot_load.png
@@ -121,7 +121,7 @@ NeuroGrid-V2G/
 ├── requirements.txt         # Project dependencies
 ├── LICENSE                  # MIT License
 └── README.md                # Project documentation
-`
+```
 
 ---
 
