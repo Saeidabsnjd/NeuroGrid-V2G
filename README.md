@@ -21,10 +21,10 @@ A Multi-Agent Reinforcement Learning (MARL) framework and real-time interactive 
 
 ```mermaid
 graph TD
-    Grid[<b>Smart Grid Microgrid</b><br/>Base Load + Solar Generation] --> Pricing[<b>Dynamic Pricing Engine</b><br/>P_t = max(0.02, P_base + γ · NetLoad)]
-    Pricing --> EV1[<b>EV Agent 1</b> (DQN)<br/>State: t, SOC, Price, T_dep<br/>Action: Charge / V2G / Idle]
-    Pricing --> EV2[<b>EV Agent 2</b> (DQN)<br/>State: t, SOC, Price, T_dep<br/>Action: Charge / V2G / Idle]
-    Pricing --> EVN[<b>EV Agent N</b> (DQN)<br/>State: t, SOC, Price, T_dep<br/>Action: Charge / V2G / Idle]
+    Grid["<b>Smart Grid Microgrid</b><br/>Base Load + Solar Generation"] --> Pricing["<b>Dynamic Pricing Engine</b><br/>P_t = max(0.02, P_base + γ · NetLoad)"]
+    Pricing --> EV1["<b>EV Agent 1</b> (DQN)<br/>State: t, SOC, Price, T_dep<br/>Action: Charge / V2G / Idle"]
+    Pricing --> EV2["<b>EV Agent 2</b> (DQN)<br/>State: t, SOC, Price, T_dep<br/>Action: Charge / V2G / Idle"]
+    Pricing --> EVN["<b>EV Agent N</b> (DQN)<br/>State: t, SOC, Price, T_dep<br/>Action: Charge / V2G / Idle"]
     EV1 -->|Power Flow| Grid
     EV2 -->|Power Flow| Grid
     EVN -->|Power Flow| Grid
