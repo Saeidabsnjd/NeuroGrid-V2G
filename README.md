@@ -16,7 +16,9 @@ A Multi-Agent Reinforcement Learning (MARL) framework and real-time interactive 
 
 ---
 
-## 🔬 Mathematical Formulation
+<details>
+<summary><b>🔬 Mathematical Formulation & Environment Physics (Click to expand)</b></summary>
+<br/>
 
 ### 1. State Space ($s_t^i$)
 Each EV agent observes a 5-dimensional continuous state vector:
@@ -40,6 +42,8 @@ $$\text{Net Load}_t = L_{\text{base}, t} - G_{\text{solar}, t} + \sum_{i=1}^N P_
 Agent reward balances electricity costs/revenues, battery wear, and departure requirements:
 
 $$R_t^i = \text{FinancialReward}_t^i - \text{DegradationCost}_t^i - \text{DeparturePenalty}_t^i$$
+
+</details>
 
 ---
 
