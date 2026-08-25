@@ -8,27 +8,11 @@ A Multi-Agent Reinforcement Learning (MARL) framework and real-time interactive 
 
 ---
 
-## 📌 Key Highlights
+## ⚡ How It Works
 
-- **Decentralized Coordination**: Autonomous EV agents learn optimal charging/discharging policies using Deep Q-Networks (PyTorch DQN) and Tabular Q-Learning under local reward signals without invasive central control.
-- **Game-Theoretic Validation**: Benchmarks decentralized efficiency against a centralized mathematical Social Optimum (SLSQP solver) using the **Price of Anarchy (PoA = 1.08)**.
-- **V2G Peak Shaving & Valley Filling**: Automatically shifts charging to midday solar surpluses and feeds energy back during evening peak hours (shaving peak demand from 55 kW down to 30 kW).
-- **Interactive Web Dashboard**: Real-time glassmorphism web interface built with HTML5, CSS3, and Chart.js to monitor live agent states, battery levels, dynamic pricing, and learning curves.
-
----
-
-## 🏗️ System Architecture
-
-```mermaid
-graph TD
-    Grid["<b>Smart Grid Microgrid</b><br/>Base Load + Solar Generation"] --> Pricing["<b>Dynamic Pricing Engine</b><br/>P_t = max(0.02, P_base + γ · NetLoad)"]
-    Pricing --> EV1["<b>EV Agent 1</b> (DQN)<br/>State: t, SOC, Price, T_dep<br/>Action: Charge / V2G / Idle"]
-    Pricing --> EV2["<b>EV Agent 2</b> (DQN)<br/>State: t, SOC, Price, T_dep<br/>Action: Charge / V2G / Idle"]
-    Pricing --> EVN["<b>EV Agent N</b> (DQN)<br/>State: t, SOC, Price, T_dep<br/>Action: Charge / V2G / Idle"]
-    EV1 -->|Power Flow| Grid
-    EV2 -->|Power Flow| Grid
-    EVN -->|Power Flow| Grid
-```
+1. **State Observation**: Each autonomous EV observes the current hour, its battery state of charge (SOC), real-time electricity tariff, and time remaining until departure.
+2. **Decentralized Action**: Agents independently choose to **Charge**, **Discharge (V2G)**, or **Idle** using Deep Q-Networks (PyTorch DQN) or Tabular Q-Learning without requiring centralized coordination.
+3. **Dynamic Feedback & Peak Shaving**: The grid calculates real-time tariffs based on aggregate net load. As agents learn to avoid peak pricing and exploit solar surpluses, uncoordinated demand peaks are shaved from **55 kW down to 30 kW**, achieving a near-optimal **Price of Anarchy (PoA = 1.08)**.
 
 ---
 
