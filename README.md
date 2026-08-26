@@ -18,14 +18,13 @@ A Multi-Agent Reinforcement Learning (MARL) framework and real-time interactive 
 
 <details>
 <summary><b>🔬 Mathematical Formulation & Environment Physics (Click to expand)</b></summary>
-<br/>
 
 ### 1. State Space ($s_t^i$)
 Each EV agent observes a 5-dimensional continuous state vector:
 
-> $s_t^i = \left[ \frac{t}{24}, \; \text{SOC}_t^i, \; \frac{P_t}{P_{\max}}, \; \frac{T_{\text{dep}}^i - t}{24}, \; \text{SOC}_{\text{target}}^i \right]$
-> 
-> *where $\text{SOC}_t^i \in [0.15, 1.0]$ is the battery state of charge and $P_t$ is the electricity tariff.*
+$$s_t^i = \left[ \frac{t}{24}, \; \text{SOC}_t^i, \; \frac{P_t}{P_{\max}}, \; \frac{T_{\text{dep}}^i - t}{24}, \; \text{SOC}_{\text{target}}^i \right]$$
+
+where $\text{SOC}_t^i \in [0.15, 1.0]$ is the battery state of charge and $P_t$ is the electricity tariff.
 
 ### 2. Action Space ($a_t^i$)
 Each connected EV chooses among 3 discrete actions:
@@ -36,16 +35,15 @@ Each connected EV chooses among 3 discrete actions:
 ### 3. Dynamic Congestion Pricing ($P_t$)
 Electricity tariff is determined dynamically based on aggregate net demand:
 
-> $P_t = \max\left(0.02, \; P_{\text{base}} + \gamma \cdot \text{Net Load}_t\right)$
-> 
-> *where $\text{Net Load}_t = L_{\text{base}, t} - G_{\text{solar}, t} + \sum_{i=1}^N P_{\text{ev}, t}^i$*
+$$P_t = \max\left(0.02, \; P_{\text{base}} + \gamma \cdot \text{Net Load}_t\right)$$
+
+$$\text{Net Load}_t = L_{\text{base}, t} - G_{\text{solar}, t} + \sum_{i=1}^N P_{\text{ev}, t}^i$$
 
 ### 4. Reward Function ($R_t^i$)
 Agent reward balances electricity costs/revenues, battery wear, and departure requirements:
 
-> $R_t^i = \text{FinancialReward}_t^i - \text{DegradationCost}_t^i - \text{DeparturePenalty}_t^i$
+$$R_t^i = \text{FinancialReward}_t^i - \text{DegradationCost}_t^i - \text{DeparturePenalty}_t^i$$
 
-<br/>
 </details>
 
 ---
